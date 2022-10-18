@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshoppe-pricing
+  namespace: eShoppe
+  labels:
+    app: pricing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pricing
+  template:
+    metadata:
+      labels:
+        app: pricing
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: pricing
+        image: 334754635354.dkr.ecr.us-east-2.amazonaws.com/pricing
+        ports:
+        - name: http
+          containerPort: 8082
+        imagePullPolicy: Always
+      nodeSelector:
+        kubernetes.io/os: linux

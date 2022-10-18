@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name="product-service", configuration = CustomFeignConfig.class, url = "http://localhost:8081")
+@FeignClient(name="product-service", configuration = CustomFeignConfig.class, url = "http://product-service:8081")
 public interface ProductHandler {
 
 

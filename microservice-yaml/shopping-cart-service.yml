@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: shoppingcart-service
+  namespace: eShoppe
+  labels:
+    app: shoppingcart-service
+spec:
+  selector:
+    app: shoppingcart
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

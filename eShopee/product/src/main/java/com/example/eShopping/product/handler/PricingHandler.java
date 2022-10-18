@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name="pricing-service", configuration = CustomFeignConfig.class, url = "http://localhost:8082")
+@FeignClient(name="pricing-service", configuration = CustomFeignConfig.class, url = "http://pricing-service:8082")
 public interface PricingHandler {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/product/{productId}")

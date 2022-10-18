@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshoppe-product
+  namespace: eShoppe
+  labels:
+    app: product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: product
+        image: 334754635354.dkr.ecr.us-east-2.amazonaws.com/product
+        ports:
+        - name: http
+          containerPort: 8081
+        imagePullPolicy: Always
+      nodeSelector:
+        kubernetes.io/os: linux

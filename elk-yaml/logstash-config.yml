@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-config
+  namespace: eShoppe
+data:
+  logstash.conf: |-
+      input {
+        beats {
+            port => "9600"
+        }
+      }
+  
+      filter {
+
+        # Container logs are received with variable named index_prefix 
+        # Since it is in json format, we can decode it via json filter plugin.
+        if [index_prefix] == "eshopee-logs" {
+
+            json {
+              source => "message"
+              skip_on_invalid_json => true
+            }
+          
+        }
+
+        # do not expose index_prefix field to elasticsearch
+        mutate {
+          # @metadata is not exposed outside of Logstash by default.
+          add_field => { "[@metadata][index_prefix]" => "%{index_prefix}-%{+YYYY.MM.dd}" }
+          # since we added index_prefix to metadata, we no longer need ["index_prefix"] field.
+          remove_field => ["index_prefix"]
+          remove_field => [ "host" ]
+        }
+
+      }
+  
+      output {
+        # You can uncomment this line to investigate the generated events by the logstash.
+        #stdout { codec => rubydebug }
+        elasticsearch {
+            hosts => "elasticsearch:9200"
+            template_overwrite => false
+            manage_template => false
+            # The events will be stored in elasticsearch under previously defined index_prefix value.  
+            index => "%{[@metadata][index_prefix]}"
+            sniffing => false
+        }
+      }

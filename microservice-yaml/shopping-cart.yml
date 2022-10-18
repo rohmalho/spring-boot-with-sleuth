@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshoppe-shoppingcart
+  namespace: eShoppe
+  labels:
+    app: shoppingcart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shoppingcart
+  template:
+    metadata:
+      labels:
+        app: shoppingcart
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: shoppingcart
+        image: 334754635354.dkr.ecr.us-east-2.amazonaws.com/shoppingcart
+        ports:
+        - name: http
+          containerPort: 8080
+        imagePullPolicy: Always
+      nodeSelector:
+        kubernetes.io/os: linux
