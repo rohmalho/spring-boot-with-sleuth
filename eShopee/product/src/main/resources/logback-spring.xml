@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.example.eShopping.logger.logging.LogLayout" />
+        </encoder>
+    </appender>
+
+    <!-- LOG everything at INFO level -->
+    <root level="info">
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- LOG "com.example.eShopping.product*" at INFO level -->
+    <logger name="com.example.eShopping.product" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>
