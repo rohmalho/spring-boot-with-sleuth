@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
-  namespace: eShoppe
+  namespace: eshoppe
   labels:
     app: kibana
 spec:

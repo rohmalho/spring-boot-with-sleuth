@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: elasticsearch
-  namespace: eShoppe
+  namespace: eshoppe
   labels:
     app: elasticsearch
 spec:

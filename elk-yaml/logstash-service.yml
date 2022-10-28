@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: logstash
-  namespace: eShoppe
+  namespace: eshoppe
 spec:
   type: NodePort
   selector:

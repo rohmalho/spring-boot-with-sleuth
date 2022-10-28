@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: filebeat
-  namespace: eShoppe
+  namespace: eshoppe
   labels:
     app: filebeat
 spec:  

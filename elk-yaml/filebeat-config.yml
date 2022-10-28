@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: filebeat-config
-  namespace: eShoppe
+  namespace: eshoppe
 data:
   filebeat.yml: |-
 
@@ -11,7 +11,7 @@ data:
       enabled: true
       paths:
       #pattern of your path from which logs are taken as input
-        - /var/log/pods/eShoppe_eshoppe-*/*/*.log
+        - /var/log/pods/eshoppe_eshoppe-*/*/*.log
       # If you setup helm for your cluster and want to investigate its logs, comment out this section.
       exclude_files: ['unwantedfiles-*']
 

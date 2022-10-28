@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eshoppe-product
-  namespace: eShoppe
+  namespace: eshoppe
   labels:
     app: product
 spec:
